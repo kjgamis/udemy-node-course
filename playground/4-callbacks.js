@@ -5,6 +5,7 @@
 // 3. After 2 seconds are up, call the callback function with the sum
 // 4. Test your work!
 
+// callback is defined in the function itself where the logic is written
 const add = (num1, num2, callback) => {
   setTimeout(() => {
     callback(num1 + num2)
