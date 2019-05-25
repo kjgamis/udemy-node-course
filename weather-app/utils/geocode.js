@@ -3,6 +3,7 @@ const request = require('request')
 const geocode = (address, callback) => {
     const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?access_token=pk.eyJ1Ijoia2pnYW1pcyIsImEiOiJjanZxMnhsOHMwMzU5M3lyeDc1d3NoeW9rIn0.oP2_OQ10lm1DRyS0K_oPxg&limit=1`
 
+    // callback can receive a successful response or an error. 'if' loop defines either one of the other
     request({ url, json: true }, (error, response) => {
         if (error) {
             callback('Unable to connect to location services', undefined)
