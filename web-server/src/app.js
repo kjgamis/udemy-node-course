@@ -4,11 +4,14 @@ const app = express()
 
 // first argument is the route/slug
 app.get('', (req, res) => {
-    res.send('Hello Express!')
+    res.send('<h1>Hello Express!</h1>')
 })
 
 app.get('/help', (req, res) => {
-    res.send('Help Page')
+    res.send({
+        name: 'Karen',
+        age: 22
+    })
 })
 
 app.get('/about', (req, res) => {
@@ -16,7 +19,10 @@ app.get('/about', (req, res) => {
 })
 
 app.get('/weather', (req, res) => {
-    res.send('Weather Page')
+    res.send({
+        location: 'Toronto',
+        forecast: 'sunny'
+    })
 })
 
 app.listen(3000, () => {
