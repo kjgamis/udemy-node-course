@@ -7,11 +7,35 @@ const express = require('express')
 const app = express()
 const publicDirectoryPath = path.join(__dirname, '../public')
 
+app.set('view engine', 'hbs')
 app.use(express.static(publicDirectoryPath))
 
 // first argument is the route/slug
 app.get('', (req, res) => {
-    res.send('<h1>Hello Express!</h1>')
+    // first argument must match template name without extension
+    // second argument is an object containing values you want the view to be able to access 
+    res.render('index', {
+        title: 'Weather App',
+        name: 'Karen Gamis'
+    })
+})
+
+app.get('/about', (req, res) => {
+    // first argument must match template name without extension
+    // second argument is an object containing values you want the view to be able to access 
+    res.render('about', {
+        title: 'About Me',
+        name: 'Karen Gamis'
+    })
+})
+
+app.get('/help', (req, res) => {
+    // first argument must match template name without extension
+    // second argument is an object containing values you want the view to be able to access 
+    res.render('help', {
+        title: 'Help',
+        helpText: 'Helpful Text'
+    })
 })
 
 app.get('/weather', (req, res) => {
