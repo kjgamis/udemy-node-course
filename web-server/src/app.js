@@ -1,5 +1,6 @@
 const path = require('path')
 const express = require('express')
+const hbs = require('hbs')
 
 // console.log(__dirname)
 // console.log(path.join(__dirname, '../public'))
@@ -8,11 +9,13 @@ const app = express()
 
 // paths for express config
 const publicDirectoryPath = path.join(__dirname, '../public')
-const viewsDirectory = path.join(__dirname, '../templates')
+const viewsDirectory = path.join(__dirname, '../templates/views')
+const partialsPath = path.join(__dirname, '../templates/partials')
 
 // setup handlebars and views location
 app.set('view engine', 'hbs')
 app.set('views', viewsDirectory)
+hbs.registerPartials(partialsPath)
 
 // setup static directory to serve
 app.use(express.static(publicDirectoryPath))
@@ -41,6 +44,7 @@ app.get('/help', (req, res) => {
     // second argument is an object containing values you want the view to be able to access 
     res.render('help', {
         title: 'Help',
+        name: 'Karen Gamis',
         helpText: 'Helpful Text'
     })
 })
