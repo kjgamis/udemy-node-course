@@ -2,6 +2,9 @@ const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
 
+const geocode = require('./utils/geocode')
+const forecast = require('./utils/forecast')
+
 // console.log(__dirname)
 // console.log(path.join(__dirname, '../public'))
 
@@ -50,9 +53,43 @@ app.get('/help', (req, res) => {
 })
 
 app.get('/weather', (req, res) => {
+    const address = req.query.address
+    if (!address) {
+        return res.send({
+            error: 'You must provide an address'
+        })
+    }
+    // default value for longitude, latitude and location must be provided in the case of an error where they do not exist and therefore cannot be destructured
+    geocode(address, (error, { longitude, latitude, location } = {}) => {
+        if (error) {
+            return res.send({ error })
+        }
+
+        forecast(longitude, latitude, (error, forecastData) => {
+            if (error) {
+                return res.send({ error: error })
+            }
+            res.send({ address, location, forecast: forecastData })
+        })
+        
+    })
+
+    // res.send({
+    //     forecast: 'sunny',
+    //     location: 'Toronto',
+    //     address: req.query.address
+    // })
+})
+
+app.get('/products', (req, res) => {
+    if (!req.query.search) {
+        return res.send({
+            error: 'You must provide a search term!'
+        })
+    }
+    console.log(req.query)
     res.send({
-        location: 'Toronto',
-        forecast: 'sunny'
+        products: []
     })
 })
 
