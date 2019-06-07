@@ -1,21 +1,20 @@
 console.log('Client side JavaScript code loaded.')
 
-const url = 'http://puzzle.mead.io/puzzle'
+const weatherForm = document.querySelector('form')
+const search = document.querySelector('input')
+weatherForm.addEventListener('submit',(e) => {
+  e.preventDefault()
+  const location = search.value
 
-fetch(url).then(response => {
+  fetch('http://localhost:3000/weather?address=' + location).then(response => {
     response.json().then(data => {
-      console.log(data)
+      if (data.error) {
+        console.log(data.error)
+      } else {
+        console.log(data.address)
+        console.log(data.forecast)
+        console.log(data.location)
+      }
     })
-  })
-
-fetch('/weather?address=toronto').then(response => {
-  response.json().then(data => {
-    if (data.error) {
-       console.log(data.error)
-    } else {
-      console.log(data.address)
-      console.log(data.forecast)
-      console.log(data.location)
-    }
   })
 })
