@@ -59,8 +59,8 @@ app.get('/weather', (req, res) => {
             error: 'You must provide an address'
         })
     }
-    
-    geocode(address, (error, { longitude, latitude, location }) => {
+    // default value for longitude, latitude and location must be provided in the case of an error where they do not exist and therefore cannot be destructured
+    geocode(address, (error, { longitude, latitude, location } = {}) => {
         if (error) {
             return res.send({ error })
         }
