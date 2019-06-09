@@ -9,6 +9,8 @@ const forecast = require('./utils/forecast')
 // console.log(path.join(__dirname, '../public'))
 
 const app = express()
+// standard to use env variables
+const port = process.env.PORT || 3000
 
 // paths for express config
 const publicDirectoryPath = path.join(__dirname, '../public')
@@ -28,7 +30,7 @@ app.get('', (req, res) => {
     // first argument must match template name without extension
     // second argument is an object containing values you want the view to be able to access 
     res.render('index', {
-        title: 'Weather App',
+        title: 'Weather',
         name: 'Karen Gamis'
     })
 })
@@ -109,6 +111,6 @@ app.get('*', (req, res) => {
     })
 })
 
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log('Server is up on port 3000')
 })
