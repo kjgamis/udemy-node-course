@@ -4,7 +4,7 @@
 const { MongoClient, ObjectID } = require('mongodb')
 // const ObjectID = mongodb.ObjectID
 
-const id = new ObjectID()
+// const id = new ObjectID()
 // console.log(id)
 // console.log(id.getTimestamp())
 // console.log(id.id)
@@ -22,6 +22,7 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true}, (error, client) => 
     console.log('Connected to MongoDB successfully')
     const db = client.db(dbName)
 
+    // ========== CREATE ========== //
     // db.collection('users').insertOne({
     //     _id: id,
     //     name: 'Karen Gamis',
@@ -68,6 +69,42 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true}, (error, client) => 
     //     }
     //     console.log(result.ops)
     // })
+    
+    // ========== READ ========== //
+    db.collection('users').findOne({ _id: new ObjectID("5cfd6bed416c950613269ada")}, (error, user) => {
+        if (error) {
+            return console.log('Unable to find user.')
+        }
+        console.log(user)
+    })
+    // console.log(users)
+
+    // ----- using the cursor ----- //
+    db.collection('users').find({ age: 24 }).toArray((error, user) => {
+        if (error) {
+            return console.log('Unable to find user.')
+        }
+        console.log(user[0])
+    })
+
+    db.collection('users').find({ age: 24 }).count((error, count) => {        
+        console.log(count)
+    })
+
+    db.collection('tasks').findOne({ _id: new ObjectID("5cfd7073a66c40077c08c542") }, (error, task) => {
+        if (error) {
+            return console.log('Unable to find task.')
+        }
+        console.log(task)
+    })
+
+    // ----- incomplete tasks ----- //
+    db.collection('tasks').find({ completed: false }).toArray((error, tasks) => {
+        if (error) {
+            return console.log('Unable to find tasks')
+        }
+        console.log(tasks)
+    })
 
     client.close()
 })
