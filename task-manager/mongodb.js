@@ -107,29 +107,46 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true}, (error, client) => 
     // })
 
     // ========== UPDATE ========== //
-    db.collection('users').updateOne({
-        _id: new ObjectID('5cfd6bed416c950613269ada')
-    }, {
-        $inc: {
-            age: -1
-        }
+    // db.collection('users').updateOne({
+    //     _id: new ObjectID('5cfd6bed416c950613269ada')
+    // }, {
+    //     $inc: {
+    //         age: -1
+    //     }
+    // }).then((result) => {
+    //     console.log('Result:', result)
+    // }).catch((error) => {
+    //     console.log('Error:', error)
+    // })
+
+    // db.collection('tasks').updateMany({
+    //     completed: false
+    // }, {
+    //     $set: {
+    //         completed: true
+    //     }
+    // }).then((result) => {
+    //     console.log('Completed', result)
+    // }).catch((error) => {
+    //     console.log('Error:', error)
+    // })
+
+    // ========== DELETE ========== //
+    db.collection('tasks').deleteOne({
+        description: 'buy supplies'
     }).then((result) => {
-        console.log('Result:', result)
+        console.log('Deleted', result)
     }).catch((error) => {
         console.log('Error:', error)
     })
 
-    db.collection('tasks').updateMany({
-        completed: false
-    }, {
-        $set: {
-            completed: true
-        }
-    }).then((result) => {
-        console.log('Completed', result)
-    }).catch((error) => {
-        console.log('Error:', error)
-    })
+    // db.collection('users').deleteMany({
+    //     age: 100
+    // }).then((result) => {
+    //     console.log('Deleted', result)
+    // }).catch((error) => {
+    //     console.log('Error:', error)
+    // })
 
     client.close()
 })
