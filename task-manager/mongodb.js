@@ -69,7 +69,7 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true}, (error, client) => 
     //     }
     //     console.log(result.ops)
     // })
-    
+
     // ========== READ ========== //
     db.collection('users').findOne({ _id: new ObjectID("5cfd6bed416c950613269ada")}, (error, user) => {
         if (error) {
